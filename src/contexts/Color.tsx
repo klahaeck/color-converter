@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import chroma from "chroma-js";
+import { Playwrite_DK_Loopet } from 'next/font/google';
 
 type ColorContextContextProviderProps = {
   children: ReactNode
@@ -9,6 +10,7 @@ type ColorContext = {
   bgColor: string | null
   contrastColor: string | null
   conversions: { type: string, color: string }[]
+  pallete: string[]
   setBgColor: (color: string) => void
 }
 
@@ -20,10 +22,21 @@ function generateHighContrastColor(baseColor: string) {
   return isDark ? '#ededed' : '#0a0a0a';
 }
 
+function generateComplementaryPalette(baseColor: string, numberOfColors: number = 6) {
+  const color = chroma(baseColor);
+  const complementary = color.set('hsl.h', (color.get('hsl.h') + 180) % 360);
+
+  // Generate a palette between the base and complementary colors
+  const palette = chroma.scale([color, complementary]).mode('lch').colors(numberOfColors);
+  palette.shift();
+  return palette;
+}
+
 export function ColorProvider({ children }: ColorContextContextProviderProps) {
   const [ bgColor, setBgColor ] = useState<string | null>(null);
   const [ contrastColor, setContrastColor ] = useState<string | null>(null);
   const [ conversions, setConversions ] = useState<{ type: string, color: string }[]>([]);
+  const [ pallete, setPallete ] = useState<string[]>([]);
 
   useEffect(() => {
     if (bgColor) {
@@ -35,6 +48,7 @@ export function ColorProvider({ children }: ColorContextContextProviderProps) {
         { type: 'hsl', color: chroma(bgColor).css('hsl') },
         { type: 'lab', color: chroma(bgColor).css('lab') },
       ]);
+      setPallete(generateComplementaryPalette(bgColor));
     }
   }, [bgColor]);
 
@@ -44,6 +58,7 @@ export function ColorProvider({ children }: ColorContextContextProviderProps) {
       setBgColor,
       contrastColor,
       conversions,
+      pallete,
     }}>
       {children}
     </ColorContext.Provider>

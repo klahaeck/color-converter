@@ -11,8 +11,19 @@ type Inputs = {
   // color1: string
 }
 
+const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text).then(
+    () => {
+      console.log('Copied to clipboard: ', text);
+    },
+    (err) => {
+      console.error('Failed to copy: ', err);
+    }
+  );
+};
+
 export default function Home() {
-  const { bgColor, setBgColor, contrastColor, conversions } = useColor();
+  const { bgColor, setBgColor, contrastColor, conversions, pallete } = useColor();
 
   const {
     register,
@@ -34,7 +45,7 @@ export default function Home() {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-16 sm:p-20" style={{
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-16 sm:p-20 transition-all" style={{
       backgroundColor: bgColor || "black",
       color: contrastColor || "white",
     }}>
@@ -43,7 +54,7 @@ export default function Home() {
           <div className="flex gap-10">
             <label className="flex flex-col gap-2">
               <span className="hidden">Color</span>
-              <input {...register("color")} autoFocus className="text-3xl bg-transparent px-0 py-1 text-center outline-0 border-b border-white" style={{
+              <input {...register("color")} autoFocus className="text-4xl font-bold   bg-transparent px-0 py-1 text-center outline-0 border-b border-white" style={{
                 borderColor: contrastColor || "white",
               }} />
             </label>
@@ -54,9 +65,22 @@ export default function Home() {
           <div className="flex flex-col gap-4 text-xl">
             <ul className="flex flex-col gap-2">
               {conversions.map((conversion, index) => (
-                <li key={index}>{conversion.type}: {conversion.color}</li>
+                <li key={index}>{conversion.type}: <span className="font-bold">{conversion.color}</span></li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {pallete.length > 1 && (
+          <div className="flex flex-col gap-4 text-xl">
+            <h2>Pallete (click to copy)</h2>
+            <div className="flex gap-2">
+              {pallete.map((color, index) => (
+                <div key={index} className="w-8 h-8 rounded-full cursor-pointer" style={{
+                  backgroundColor: color,
+                }} title={color} onClick={() => copyToClipboard(color)} />
+              ))}
+            </div>
           </div>
         )}
       </main>
