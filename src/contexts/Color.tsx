@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import chroma from "chroma-js";
-import { Playwrite_DK_Loopet } from 'next/font/google';
 
 type ColorContextContextProviderProps = {
   children: ReactNode
