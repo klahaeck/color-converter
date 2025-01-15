@@ -14,7 +14,7 @@ type Inputs = {
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text).then(
     () => {
-      console.log('Copied to clipboard: ', text);
+      // console.log('Copied to clipboard: ', text);
     },
     (err) => {
       console.error('Failed to copy: ', err);
