@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useColor } from "@/contexts/Color";
 import { useForm, SubmitHandler } from "react-hook-form";
 import chroma from "chroma-js";
+import { saveColor } from "@/lib/directus";
 
 type Inputs = {
   color: string
@@ -41,6 +42,12 @@ export default function Home() {
       setBgColor(color);
     }
   }, [watchColor, setBgColor]);
+
+  useEffect(() => {
+    if (bgColor) {      
+      saveColor(bgColor);
+    }
+  }, [bgColor]);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 

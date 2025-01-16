@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/color-converter",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}
