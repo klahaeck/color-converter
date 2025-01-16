@@ -52,16 +52,16 @@ export default function Home() {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-16 sm:p-20 transition-all" style={{
+    <div className="flex flex-col items-center justify-between min-h-screen p-8 sm:p-20 transition-all" style={{
       backgroundColor: bgColor || "black",
       color: contrastColor || "white",
     }}>
-      <main className="grow flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start">
+      <main className="flex flex-col gap-8 items-center justify-center">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-10">
-            <label className="flex flex-col gap-2">
+            <label className="flex flex-col gap-2 w-full">
               <span className="hidden">Color</span>
-              <input {...register("color")} autoFocus className="text-4xl font-bold   bg-transparent px-0 py-1 text-center outline-0 border-b border-white" style={{
+              <input {...register("color")} autoFocus className="text-4xl font-bold bg-transparent px-0 py-1 text-center outline-0 border-b border-white" style={{
                 borderColor: contrastColor || "white",
               }} />
             </label>
