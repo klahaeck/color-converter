@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@directus/sdk": "^19.0.0",
+    "@vercel/analytics": "^1.4.1",
     "chroma-js": "^3.1.2",
     "next": "15.1.4",
     "react": "^19.0.0",

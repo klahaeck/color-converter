@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Code_Pro } from "next/font/google";
 import { Providers } from "./providers";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const sourceCodePro = Source_Code_Pro({
@@ -26,6 +27,7 @@ export default function RootLayout({
           className={`${sourceCodePro.className} antialiased`}
         >
           {children}
+          <Analytics />
         </body>
       </Providers>
     </html>
