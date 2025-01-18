@@ -52,12 +52,12 @@ export default function Home() {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen p-8 sm:p-20 transition-all" style={{
+    <div className="flex flex-col items-center justify-between min-h-screen p-6 sm:p-14 w-full transition-all" style={{
       backgroundColor: bgColor || "black",
       color: contrastColor || "white",
     }}>
-      <main className="flex flex-col gap-8 items-center justify-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <main className="flex flex-col gap-8 items-center justify-center w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex gap-10">
             <label className="flex flex-col gap-2 w-full">
               <span className="hidden">Color</span>
@@ -92,7 +92,7 @@ export default function Home() {
         )}
       </main>
 
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex gap-6 text-xs uppercase flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://thesion.com"
